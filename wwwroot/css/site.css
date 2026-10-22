@@ -1,0 +1,42 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* Hiệu ứng nhô lên cho thẻ sản phẩm */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+    }
+
+/* Đổi màu chữ giá tiền */
+.text-danger {
+    color: #e50027 !important; /* Màu đỏ nổi bật cho giá */
+}
+
+/* Tùy chỉnh màu xanh chủ đạo cho Header */
+.bg-primary {
+    background-color: #0071e3 !important; /* Màu xanh công nghệ */
+}
