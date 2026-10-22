@@ -27,6 +27,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// 1. Tuy?n ???ng ?u tiên cho khu v?c Admin
+app.MapControllerRoute(
+    name: "MyArea",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+// 2. Tuy?n ???ng m?c ??nh cho User (Khách hàng)
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ql_cuahang.Models; // Gọi thư mục Models của bạn
+using ql_cuahang.Models; 
 
 namespace ql_cuahang.Controllers
 {
