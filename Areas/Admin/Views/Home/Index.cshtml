@@ -1,4 +1,37 @@
-﻿@page
-@model ql_cuahang.Areas.Admin.Views.Home.IndexModel
-@{
+﻿@{
+    ViewData["Title"] = "Bảng điều khiển Admin";
 }
+
+<h2 class="mb-4">Bảng điều khiển (Dashboard)</h2>
+
+<div class="row">
+    <!-- Tổng sản phẩm -->
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Tổng Sản Phẩm</h5>
+                <p class="card-text fs-2 fw-bold">12</p> <!-- Sau này sẽ thay bằng code C# đếm thật -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tổng đơn hàng -->
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Đơn Hàng Mới</h5>
+                <p class="card-text fs-2 fw-bold">5</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doanh thu -->
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Doanh Thu Tháng</h5>
+                <p class="card-text fs-2 fw-bold">25.5M</p>
+            </div>
+        </div>
+    </div>
+</div>  

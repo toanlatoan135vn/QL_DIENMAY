@@ -4,28 +4,147 @@
     ViewData["Title"] = "Trang chủ - Điện Máy Nhóm 13";
 }
 
-<div class="text-center mb-5">
-    <h1 class="display-4 text-primary fw-bold">ĐIỆN MÁY NHÓM 13</h1>
-    <p>Sản phẩm chính hãng, giá tốt nhất thị trường!</p>
+<!-- 1. BANNER QUẢNG CÁO CHÍNH (HERO BANNER) -->
+<div class="hero-banner mt-3 mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <span class="hero-badge mb-2">⚡ Siêu Sale Điện Máy 2026</span>
+            <h1 class="fw-bold mt-2 mb-2" style="font-size: 2.2rem;">ĐIỆN MÁY XANH - NHÓM 13</h1>
+            <p class="mb-3 opacity-90 fs-6">Sắm Tivi, Tủ lạnh, Máy lạnh, Máy giặt chính hãng – Giảm sâu đến 25%, giao lắp miễn phí tận nhà!</p>
+            <div class="d-flex gap-2">
+                <a href="#danh-sach-sp" class="btn btn-warning fw-bold px-4 py-2 rounded-pill">Săn Deal Ngay</a>
+                <a href="#" class="btn btn-outline-light px-4 py-2 rounded-pill">Xem Khuyến Mãi</a>
+            </div>
+        </div>
+        <div class="col-md-4 text-center d-none d-md-block">
+            <div class="p-3 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-25">
+                <div class="fs-1">📺 ❄️ 🧺</div>
+                <div class="fw-bold mt-1">TRẢ GÓP 0% LÃI SUẤT</div>
+                <small class="opacity-75">Duyệt hồ sơ nhanh trong 5 phút</small>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+<!-- 2. THANH CAM KẾT DỊCH VỤ (4 Ô TIỆN ÍCH) -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="service-box shadow-sm">
+            <div class="service-icon">🚚</div>
+            <div>
+                <div class="fw-bold" style="font-size: 14px;">Giao lắp miễn phí</div>
+                <div class="text-muted" style="font-size: 12px;">Bán kính 20km nội thành</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="service-box shadow-sm">
+            <div class="service-icon">🛡️</div>
+            <div>
+                <div class="fw-bold" style="font-size: 14px;">Bảo hành 24 tháng</div>
+                <div class="text-muted" style="font-size: 12px;">100% hàng chính hãng</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="service-box shadow-sm">
+            <div class="service-icon">🔄</div>
+            <div>
+                <div class="fw-bold" style="font-size: 14px;">Lỗi 1 đổi 1 (30 ngày)</div>
+                <div class="text-muted" style="font-size: 12px;">Đổi mới ngay tại nhà</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="service-box shadow-sm">
+            <div class="service-icon">💳</div>
+            <div>
+                <div class="fw-bold" style="font-size: 14px;">Hỗ trợ trả góp 0%</div>
+                <div class="text-muted" style="font-size: 12px;">Qua thẻ tín dụng & CCCD</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3. TIÊU ĐỀ KHU VỰC SẢN PHẨM -->
+<div id="danh-sach-sp" class="section-header mb-3">
+    <div>
+        <h4 class="fw-bold mb-0 text-primary">🔥 SẢN PHẨM NỔI BẬT</h4>
+    </div>
+    <div class="d-none d-sm-flex gap-2">
+        <span class="badge bg-primary px-3 py-2 rounded-pill">Tất cả</span>
+        <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">Tivi 4K</span>
+        <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">Tủ lạnh</span>
+        <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">Máy lạnh</span>
+        <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">Máy giặt</span>
+    </div>
+</div>
+
+<!-- 4. LƯỚI SẢN PHẨM CHUẨN E-COMMERCE -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 mb-5">
     @if (Model != null && Model.Any())
     {
         @foreach (var item in Model)
         {
-            <div class="col">
-                <div class="card h-100 shadow-sm border-0">
-                    <!-- Ảnh tạm thời dùng link ảnh trên mạng để test -->
-                    <img src="https://via.placeholder.com/300x200?text=Dien+May" class="card-img-top" alt="@item.TenSP">
+            // Tính giá gốc giả định (cao hơn 15%) để tạo hiệu ứng giảm giá
+            var giaGoc = item.GiaBan * 1.15m;
 
-                    <div class="card-body">
-                        <h6 class="card-title fw-bold text-truncate" title="@item.TenSP">@item.TenSP</h6>
-                        <p class="card-text text-danger fw-bold fs-5">@item.GiaBan.ToString("N0") VNĐ</p>
+            // Tự động chọn ảnh minh họa sắc nét theo tên SP nếu TV2 chưa kịp thêm file ảnh vào thư mục
+            string demoImg = "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=500&q=80";
+            if (item.TenSP != null)
+            {
+                if (item.TenSP.Contains("Tủ lạnh"))
+                    demoImg = "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=500&q=80";
+                else if (item.TenSP.Contains("Máy lạnh"))
+                    demoImg = "https://images.unsplash.com/photo-1628744876497-eb30460be9f6?auto=format&fit=crop&w=500&q=80";
+                else if (item.TenSP.Contains("Máy giặt"))
+                    demoImg = "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=500&q=80";
+            }
+
+            <div class="col">
+                <div class="product-card h-100 shadow-sm">
+                    <div>
+                        <!-- Hàng nhãn Trả góp & Giảm giá -->
+                        <div class="card-badges">
+                            <span class="badge-installment">Trả góp 0%</span>
+                            <span class="badge-discount">-15%</span>
+                        </div>
+
+                        <!-- Khung ảnh: Ưu tiên ảnh trong ~/images, nếu chưa có sẽ tự bật ảnh demoImg -->
+                        <div class="product-img-wrapper">
+                            <img src="~/images/@item.HinhAnh"
+                                 onerror="this.onerror=null; this.src='@demoImg';"
+                                 alt="@item.TenSP">
+                        </div>
+
+                        <!-- Nhãn thông số -->
+                        <div class="spec-tags">
+                            <span class="spec-tag">Inverter</span>
+                            <span class="spec-tag">Chính hãng</span>
+                        </div>
+
+                        <!-- Tên sản phẩm -->
+                        <h6 class="product-title" title="@item.TenSP">@item.TenSP</h6>
                     </div>
 
-                    <div class="card-footer bg-white border-0 text-center pb-3">
-                        <a href="#" class="btn btn-outline-primary w-100">Chọn mua</a>
+                    <div>
+                        <!-- Giá bán & Giá gốc gạch ngang -->
+                        <div class="product-price-box">
+                            <div class="product-price">@item.GiaBan.ToString("N0") ₫</div>
+                            <div>
+                                <span class="product-old-price">@giaGoc.ToString("N0") ₫</span>
+                                <span class="text-success fw-semibold" style="font-size: 12px;">Quà 500K</span>
+                            </div>
+                        </div>
+
+                        <!-- Đánh giá sao -->
+                        <div class="product-rating">
+                            <span>★★★★★</span>
+                            <span class="text-muted">(4.9)</span>
+                        </div>
+
+                        <!-- Nút mua hàng -->
+                        <button class="btn btn-buy w-100">🛒 Chọn mua ngay</button>
                     </div>
                 </div>
             </div>
