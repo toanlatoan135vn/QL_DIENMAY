@@ -40,7 +40,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav fw-medium">
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Home" asp-action="Index">Trang chủ</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Trang chủ</a>
                         </li>
 
                         <!-- Menu Cấp 1 -->
@@ -48,13 +48,21 @@
                             <a class="nav-link dropdown-toggle" href="#" id="menuDienLanh" role="button" data-bs-toggle="dropdown">
                                 Danh mục sản phẩm
                             </a>
-                            <!-- Menu Cấp 2 (Xổ xuống) -->
+                            <!-- Menu Cấp 2 (Xổ xuống - Đã liên kết lọc loại theo ID) -->
                             <ul class="dropdown-menu border-0 shadow">
-                                <li><a class="dropdown-item" href="#">📺 Tivi - Âm thanh</a></li>
-                                <li><a class="dropdown-item" href="#">❄️ Tủ lạnh - Tủ đông</a></li>
-                                <li><a class="dropdown-item" href="#">🌬️ Máy lạnh - Điều hòa</a></li>
-                                <li><a class="dropdown-item" href="#">🧺 Máy giặt - Sấy quần áo</a></li>
+                                <li><a class="dropdown-item" asp-controller="SanPham" asp-action="Index" asp-route-maloai="1">📺 Tivi - Âm thanh</a></li>
+                                <li><a class="dropdown-item" asp-controller="SanPham" asp-action="Index" asp-route-maloai="2">❄️ Tủ lạnh - Tủ đông</a></li>
+                                <li><a class="dropdown-item" asp-controller="SanPham" asp-action="Index" asp-route-maloai="3">🌬️ Máy lạnh - Điều hòa</a></li>
+                                <li><a class="dropdown-item" asp-controller="SanPham" asp-action="Index" asp-route-maloai="4">🧺 Máy giặt - Sấy quần áo</a></li>
                             </ul>
+                        </li>
+
+                        <!-- Thêm trực tiếp link vào module sản phẩm của bạn -->
+                        <li class="nav-item">
+                            <a class="nav-link text-primary fw-semibold" asp-controller="SanPham" asp-action="Index">Sản phẩm điện máy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger fw-bold" asp-controller="SanPham" asp-action="AdminIndex">⚙️ Quản lý Admin</a>
                         </li>
 
                         <li class="nav-item"><a class="nav-link" href="#">Khuyến mãi Hot</a></li>
@@ -64,6 +72,7 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -75,6 +84,7 @@
             &copy; 2026 - ql_cuahang - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

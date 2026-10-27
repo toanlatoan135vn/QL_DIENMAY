@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ql_cuahang.Models.SanPham>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm điện máy";
+    var loaiList = ViewBag.LoaiList as IEnumerable<ql_cuahang.Models.LoaiSanPham>;
+    var currentMaLoai = ViewBag.CurrentMaLoai as int?;
+}
+
+<div class="container my-4">
+    <h2 class="text-center mb-4 text-primary fw-bold">DANH MỤC SẢN PHẨM ĐIỆN MÁY</h2>
+
+    <!-- Thanh lọc loại sản phẩm -->
+    <div class="mb-4 text-center">
+        <a asp-action="Index" class="btn @(currentMaLoai == null ? "btn-dark" : "btn-outline-dark") m-1">Tất cả</a>
+        @if (loaiList != null)
+        {
+            foreach (var loai in loaiList)
+            {
+                <a asp-action="Index" asp-route-maloai="@loai.MaLoai"
+                   class="btn @(currentMaLoai == loai.MaLoai ? "btn-dark" : "btn-outline-dark") m-1">
+                    @loai.TenLoai
+                </a>
+            }
+        }
+    </div>
+
+    <!-- Lưới sản phẩm Bootstrap Grid -->
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 product-card shadow-sm">
+                        <img src="~/images/@(string.IsNullOrEmpty(item.HinhAnh) ? "default.png" : item.HinhAnh)"
+                             class="card-img-top product-img p-3" alt="@item.TenSP" style="height: 200px; object-fit: contain;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-truncate">@item.TenSP</h5>
+                            <p class="card-text text-danger fw-bold fs-5">@item.GiaBan.ToString("N0") VNĐ</p>
+                            <p class="card-text text-muted small">Loại: @item.LoaiSanPham?.TenLoai</p>
+                            <div class="mt-auto">
+                                <a asp-action="Details" asp-route-id="@item.MaSP" class="btn btn-outline-primary w-100 mb-2">Xem chi tiết</a>
+                                <a href="#" class="btn btn-danger w-100">Chọn mua</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+            </div>
+        }
+    </div>
+</div>

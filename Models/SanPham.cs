@@ -8,13 +8,22 @@ namespace ql_cuahang.Models
     {
         [Key]
         public int MaSP { get; set; }
+
         [Required]
         public string TenSP { get; set; } = string.Empty;
+
+        [Required]
         public decimal GiaBan { get; set; }
+
         public string? HinhAnh { get; set; }
+
         public bool TrangThai { get; set; } = true;
 
+        public bool SanPhamNoiBat { get; set; }
+
+        [Required]
         public int MaLoai { get; set; }
+
         [ForeignKey("MaLoai")]
         public LoaiSanPham? LoaiSanPham { get; set; }
     }
