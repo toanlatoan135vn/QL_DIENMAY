@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ql_cuahang.Models.SanPham>
+
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; /* Điều chỉnh lại layout admin của nhóm nếu cần */
+}
+
+<div class="container-fluid px-4 py-4">
+    <h2 class="mb-4 fw-bold text-primary">QUẢN LÝ DANH SÁCH SẢN PHẨM</h2>
+
+    <p>
+        <a asp-action="Create" class="btn btn-success fw-bold">
+            <i class="fas fa-plus"></i> Thêm sản phẩm mới
+        </a>
+    </p>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá bán</th>
+                        <th>Loại</th>
+                        <th>Trạng thái</th>
+                        <th>Nổi bật</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <img src="~/images/@(string.IsNullOrEmpty(item.HinhAnh) ? "default.png" : item.HinhAnh)"
+                                         style="width: 60px; height: 60px; object-fit: contain;" class="border rounded p-1" />
+                                </td>
+                                <td class="fw-semibold">@item.TenSP</td>
+                                <td class="text-danger fw-bold">@item.GiaBan.ToString("N0") VNĐ</td>
+                                <td>@item.LoaiSanPham?.TenLoai</td>
+                                <td class="text-center">
+                                    @if (item.TrangThai)
+                                    {
+                                        <span class="badge bg-success">Còn hàng</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Tạm hết hàng</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (item.SanPhamNoiBat)
+                                    {
+                                        <span class="badge bg-warning text-dark">Nổi bật / Trả góp 0%</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <a asp-action="Edit" asp-route-id="@item.MaSP" class="btn btn-warning btn-sm text-white me-1">Sửa</a>
+                                    <a asp-action="Delete" asp-route-id="@item.MaSP" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">Chưa có sản phẩm nào trong hệ thống.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

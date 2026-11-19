@@ -1,0 +1,74 @@
+﻿@model ql_cuahang.Models.SanPham
+
+@{
+    ViewData["Title"] = "Thêm sản phẩm mới";
+}
+
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white fw-bold">THÊM MỚI SẢN PHẨM ĐIỆN MÁY</div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="TenSP" class="form-label fw-bold">Tên sản phẩm</label>
+                            <input asp-for="TenSP" class="form-control" placeholder="Nhập tên thiết bị điện máy..." required />
+                            <span asp-validation-for="TenSP" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="MaLoai" class="form-label fw-bold">Loại sản phẩm</label>
+                            <select asp-for="MaLoai" class="form-select" asp-items="ViewBag.MaLoai" required>
+                                <option value="">-- Chọn loại điện máy --</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="GiaBan" class="form-label fw-bold">Giá bán (VNĐ)</label>
+                            <input asp-for="GiaBan" type="number" class="form-control" placeholder="Nhập giá tiền..." required />
+                            <span asp-validation-for="GiaBan" class="text-danger"></span>
+                        </div>
+
+                        <!-- Ô chọn file hình ảnh từ máy tính -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Hình ảnh sản phẩm</label>
+                            <input type="file" name="fileHinh" class="form-control" />
+                        </div>
+
+                        <!-- Radio Button bắt buộc cho Tình trạng hàng -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold d-block">Tình trạng hàng</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="TrangThai" value="true" checked id="trangThai1" />
+                                <label class="form-check-label" for="trangThai1">Còn hàng</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="TrangThai" value="false" id="trangThai2" />
+                                <label class="form-check-label" for="trangThai2">Tạm hết hàng</label>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox bắt buộc cho Đặc điểm (Sản phẩm nổi bật / Trả góp 0%) -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold d-block">Đặc điểm / Khuyến mãi</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="SanPhamNoiBat" id="chkNoiBat" />
+                                <label class="form-check-label" for="chkNoiBat">
+                                    Sản phẩm nổi bật (Bán chạy) / Hỗ trợ trả góp 0%
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+                            <button type="submit" class="btn btn-primary px-4">Lưu sản phẩm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
