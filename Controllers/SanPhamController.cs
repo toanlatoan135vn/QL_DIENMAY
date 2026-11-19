@@ -49,28 +49,31 @@ namespace ql_cuahang.Controllers
         public async Task<IActionResult> AdminIndex()
         {
             var ds = await _context.SanPhams.Include(s => s.LoaiSanPham).ToListAsync();
-            return View(ds);
+            return View("~/Areas/Admin/Views/SanPham/Index.cshtml", ds);
         }
 
         // Thêm (GET)
         public IActionResult Create()
         {
             ViewBag.MaLoai = new SelectList(_context.LoaiSanPhams, "MaLoai", "TenLoai");
-            return View();
+            return View("~/Areas/Admin/Views/SanPham/Create.cshtml");
         }
 
         // Thêm (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(SanPham sanPham, IFormFile? imageFile)
+        public async Task<IActionResult> Create(SanPham sanPham, IFormFile? fileHinh)
         {
-            if (imageFile != null && imageFile.Length > 0)
+            if (fileHinh != null && fileHinh.Length > 0)
             {
-                string fileName = Path.GetFileName(imageFile.FileName);
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                string fileName = Path.GetFileName(fileHinh.FileName);
+                string imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                Directory.CreateDirectory(imagesFolder);
+
+                string filePath = Path.Combine(imagesFolder, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await imageFile.CopyToAsync(stream);
+                    await fileHinh.CopyToAsync(stream);
                 }
                 sanPham.HinhAnh = fileName;
             }
@@ -88,25 +91,35 @@ namespace ql_cuahang.Controllers
             if (sanPham == null) return NotFound();
 
             ViewBag.MaLoai = new SelectList(_context.LoaiSanPhams, "MaLoai", "TenLoai", sanPham.MaLoai);
-            return View(sanPham);
+            return View("~/Areas/Admin/Views/SanPham/Edit.cshtml", sanPham);
         }
 
         // Sửa (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, SanPham sanPham, IFormFile? imageFile)
+        public async Task<IActionResult> Edit(int id, SanPham sanPham, IFormFile? fileHinh)
         {
             if (id != sanPham.MaSP) return NotFound();
 
-            if (imageFile != null && imageFile.Length > 0)
+            var spDb = await _context.SanPhams.AsNoTracking().FirstOrDefaultAsync(s => s.MaSP == id);
+            if (spDb == null) return NotFound();
+
+            if (fileHinh != null && fileHinh.Length > 0)
             {
-                string fileName = Path.GetFileName(imageFile.FileName);
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                string fileName = Path.GetFileName(fileHinh.FileName);
+                string imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                Directory.CreateDirectory(imagesFolder);
+
+                string filePath = Path.Combine(imagesFolder, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await imageFile.CopyToAsync(stream);
+                    await fileHinh.CopyToAsync(stream);
                 }
                 sanPham.HinhAnh = fileName;
+            }
+            else
+            {
+                sanPham.HinhAnh = spDb.HinhAnh;
             }
 
             _context.Update(sanPham);
